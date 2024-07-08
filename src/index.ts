@@ -8,8 +8,8 @@ const port = process.env.PORT || 3000;
 
 const loginRouter = require('./routes/login')
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server");
+app.get("/serverStatus", (req: Request, res: Response) => {
+  res.send({ status: 'online'} );
 });
 
 app.use('/login', loginRouter)
