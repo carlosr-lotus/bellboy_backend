@@ -19,7 +19,7 @@ router.get('/', (req: Request, res: Response) => {
     getUser(email as string, password as string, res)
 })
 
-function getUser(email: string, password: string, res: Response) {
+function getUser(email: string, password: string, res: Response): void {
     try {
         const query = "SELECT * FROM t_Users_Login WHERE email = ? and password = ?"
 
