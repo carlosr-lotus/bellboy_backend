@@ -14,10 +14,10 @@ router.get('/', (req: Request, res: Response) => {
 
 async function getCountries(res: Response) {
     try {
-        const query = "SELECT * FROM t_Countries ORDER BY country"
+        const query = ("SELECT id as value, country as label FROM t_Countries ORDER BY country")
 
         const stmt = db.prepare(query)
-        const data = await stmt.all()
+        const data = await stmt.all() 
 
         res.status(200).json(data)
     } catch(err) {
