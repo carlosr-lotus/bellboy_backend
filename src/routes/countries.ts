@@ -1,7 +1,6 @@
 import express, { Request, Response } from "express"
 import Database from "better-sqlite3"
 import dotenv from "dotenv"
-import bcrypt from "bcryptjs"
 
 dotenv.config()
 
