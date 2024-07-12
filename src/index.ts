@@ -17,8 +17,10 @@ app.get("/serverStatus", (req: Request, res: Response) => {
 })
 
 const loginRouter = require('./routes/login')
+const countriesRouter = require('./routes/countries')
 
 app.use('/login', loginRouter)
+app.use('/countries', countriesRouter)
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`)
