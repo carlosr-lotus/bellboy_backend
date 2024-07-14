@@ -13,7 +13,7 @@ function getErrorMessage(error: unknown): string | undefined {
     else String(error)
 }
 
-router.get('/', (req: Request, res: Response) => {
+router.get('/auth', (req: Request, res: Response) => {
     const {
         email,
         password
@@ -22,10 +22,10 @@ router.get('/', (req: Request, res: Response) => {
     if (!email) res.status(400).json({ error: 'Email param not provided.' })
     if (!password) res.status(400).json({ error: 'Password param not provided.' })
 
-    getUser(email as string, password as string, res)
+    authUser(email as string, password as string, res)
 })
 
-async function getUser(email: string, password: string, res: Response) {
+async function authUser(email: string, password: string, res: Response) {
     try {
         const query = "SELECT * FROM t_Login WHERE email = ?"
 
@@ -37,9 +37,9 @@ async function getUser(email: string, password: string, res: Response) {
             const pwMatch = await bcrypt.compare(password, row.password)
 
             if (pwMatch) 
-                res.status(200).json({ message: true })
+                res.status(200).json({ res: true, message: "User authenticated sucessful." })
             else
-                res.status(400).json({ message: false })
+                res.status(400).json({ res: false, message: "User authentication failed." })
         }
     } catch(err) {
         res.status(500).json(err)
