@@ -24,4 +24,40 @@ function getServices(res: Response) {
     }
 }
 
+router.get('/user', (req: Request, res: Response) => {
+    const { email, password } = req.query
+
+    if (!email) res.status(400).json({ error: 'Email param not provided. '})    
+
+    getUserServices(email as string, res)
+})
+
+function getUserServices(email: string, res: Response) {
+    try {
+        const query = 
+            `
+            SELECT 
+                ts.id,
+                ts.name,
+                ts.color,
+                ts.status 
+            FROM t_User_Services tus
+            LEFT JOIN t_Login tl ON
+                tus.id  = tl.id 
+            LEFT JOIN t_Services ts ON
+                tus.serviceID  = ts.id
+            WHERE 
+                tl.email = ? 
+            ORDER BY ts.name 
+            `
+        
+        const stmt = db.prepare(query)
+        const data = stmt.all(email)
+
+        res.status(200).json(data)
+    } catch(err) {
+        res.status(500).json(err)
+    }
+}
+
 module.exports = router
