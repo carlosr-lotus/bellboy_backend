@@ -11,12 +11,12 @@ router.get('/', (req: Request, res: Response) => {
     getServices(res)
 })
 
-function getServices(res: Response) {
+async function getServices(res: Response) {
     try {
         const query = "SELECT id as value, name as label FROM t_Services"
 
         const stmt = db.prepare(query)
-        const data = stmt.all()
+        const data = await stmt.all()
 
         res.status(200).json(data)
     } catch(err) {
@@ -32,7 +32,7 @@ router.get('/user', (req: Request, res: Response) => {
     getUserServices(email as string, res)
 })
 
-function getUserServices(email: string, res: Response) {
+async function getUserServices(email: string, res: Response) {
     try {
         const query = 
             `
@@ -52,7 +52,7 @@ function getUserServices(email: string, res: Response) {
             `
         
         const stmt = db.prepare(query)
-        const data = stmt.all(email)
+        const data = await stmt.all(email)
 
         res.status(200).json(data)
     } catch(err) {
