@@ -1,6 +1,8 @@
 import express, { Request, Response } from "express"
 import Database from "better-sqlite3"
 import dotenv from "dotenv"
+import puppeteer from "puppeteer"
+import { start } from "../automation/max" 
 
 dotenv.config()
 
@@ -58,6 +60,16 @@ async function getUserServices(email: string, res: Response) {
     } catch(err) {
         res.status(500).json(err)
     }
+}
+
+router.get('/automate', (req: Request, res: Response) => {
+    automate(res)
+})
+
+async function automate(res: Response) {
+    const automationRes = await start('email', 'password')        
+   
+    res.send(automationRes)
 }
 
 module.exports = router
