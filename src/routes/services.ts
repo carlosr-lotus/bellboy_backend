@@ -1,7 +1,6 @@
 import express, { Request, Response } from "express"
 import Database from "better-sqlite3"
 import dotenv from "dotenv"
-import puppeteer from "puppeteer"
 import { start } from "../automation/max" 
 
 dotenv.config()
