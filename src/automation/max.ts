@@ -34,7 +34,6 @@ export async function start(email: string, password: string): Promise<string> {
     const signInButton = await page.evaluateHandle(`document.querySelector("#layer-root-app-content > div.StyledPageContainer-Beam-Web-User__sc-6hfijb-0.lbeabk > div > main > div.StyledPageContentWrapper-Beam-Web-User__sc-6hfijb-3.tZvxf > gi-login-username-and-mvpd").shadowRoot.querySelector("div > div > div.login-username-container > div > gi-login-username").shadowRoot.querySelector("gi-track-analytics-events > div > gi-form > form > div.button-group > button.button.submit-button.button--loud.button--medium.button--full-width")`)
     if (signInButton) await (signInButton as ElementHandle<Element>).click()
 
-    //await browser.close()
     
     return 'Process completed!'
 }
